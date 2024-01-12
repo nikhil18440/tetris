@@ -1,0 +1,35 @@
+body, html{
+    padding: 0px;
+    margin: 0px;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.left, .center, .right{
+    flex: 1;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameboard{
+    height: 600px;
+    width: 400px;
+    margin: 80px 40px 80px 40px;
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell{
+    /* background-color: rgba(0, 0, 255, 0); */
+    width: 10px;
+    height: 10px;
+}
