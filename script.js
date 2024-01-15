@@ -41,25 +41,25 @@ class Block{
         // }
     }
 
-    rotate() {
-        if(this.shape === 'z'){
-            changeColour(this.p1,this.p2,this.p3,this.p4,'')
-            this.p1 = this.p1+10
-            this.p2 = this.p2-1
-            this.p3 = this.p3+12
-            this.p4 = this.p4+1
-            console.log(this.p1,this.p2,this.p3,this.p4)
-            changeColour(this.p1,this.p2,this.p3,this.p4,this.colour)
-        }else if(this.shape === 'l'){
+    // rotate() {
+    //     if(this.shape === 'z'){
+    //         changeColour(this.p1,this.p2,this.p3,this.p4,'')
+    //         this.p1 = this.p1+10
+    //         this.p2 = this.p2-1
+    //         this.p3 = this.p3+12
+    //         this.p4 = this.p4+1
+    //         console.log(this.p1,this.p2,this.p3,this.p4)
+    //         changeColour(this.p1,this.p2,this.p3,this.p4,this.colour)
+    //     }else if(this.shape === 'l'){
 
-        }else if(this.shape === 't'){
+    //     }else if(this.shape === 't'){
 
-        }else if(this.shape === 's'){
+    //     }else if(this.shape === 's'){
 
-        }else if(this.shape === 'd'){
+    //     }else if(this.shape === 'd'){
 
-        }
-    }
+    //     }
+    // }
 }
 
 //  Z
@@ -255,35 +255,45 @@ class L extends Block{
 }
 class T extends Block{
     rotate(){
-        changeColour(this.p1,this.p2,this.p3,this.p4,'')
-        this.p1 = this.p1+10
-        this.p2 = this.p2-1
-        this.p3 = this.p3+12
-        this.p4 = this.p4+1
-        console.log(this.p1,this.p2,this.p3,this.p4)
-        changeColour(this.p1,this.p2,this.p3,this.p4,this.colour)
-    }
-
-    reverse(){
-        console.log(this.p2%10)
-        if (this.p2%10 === 0) {
+        if(rotation_count === 0){
+            changeColour(this.p1,this.p2,this.p3,this.p4,'')
+            this.p1 = this.p1+11
+            this.p2 = this.p2
+            this.p3 = this.p3-11
+            this.p4 = this.p4-9
+            console.log(this.p1,this.p2,this.p3,this.p4)
+            changeColour(this.p1,this.p2,this.p3,this.p4,this.colour)
+            rotation_count++
+        }else if(rotation_count === 1){
             changeColour(this.p1,this.p2,this.p3,this.p4,'')
             this.p1 = this.p1-9
-            this.p2 = this.p2+2
-            this.p3 = this.p3-11
-            this.p4 = this.p4
+            this.p2 = this.p2
+            this.p3 = this.p3+9
+            this.p4 = this.p4-11
             console.log(this.p1,this.p2,this.p3,this.p4)
             changeColour(this.p1,this.p2,this.p3,this.p4,this.colour)
-        } else {
+            rotation_count++
+        }else if(rotation_count === 2){
             changeColour(this.p1,this.p2,this.p3,this.p4,'')
-            this.p1 = this.p1-10
-            this.p2 = this.p2+1
-            this.p3 = this.p3-12
-            this.p4 = this.p4-1
+            this.p1 = this.p1-11
+            this.p2 = this.p2
+            this.p3 = this.p3+11
+            this.p4 = this.p4+9
             console.log(this.p1,this.p2,this.p3,this.p4)
             changeColour(this.p1,this.p2,this.p3,this.p4,this.colour)
+            rotation_count++
+        }else{
+            changeColour(this.p1,this.p2,this.p3,this.p4,'')
+            this.p1 = this.p1+9
+            this.p2 = this.p2
+            this.p3 = this.p3-9
+            this.p4 = this.p4+11
+            console.log(this.p1,this.p2,this.p3,this.p4)
+            changeColour(this.p1,this.p2,this.p3,this.p4,this.colour)
+            rotation_count = 0
         }
     }
+
 
     moveRight(rotated){
         if (!rotated) {
@@ -419,18 +429,23 @@ class D extends Block{
 //-----------------listening for mouse clicks--------------
 let rotated = false
 let canRotate = true
+let rotation_count = 0
 window.addEventListener('keydown', function(e){
     
     if (canRotate) {
 
         if(e.key === 'ArrowUp'){
             if(b1.shape !== 's'){
-                if(rotated){
-                    b1.reverse()
-                    rotated = false
+                if(b1.shape === 'z'){
+                    if(rotated){
+                        b1.reverse()
+                        rotated = false
+                    }else{
+                        b1.rotate()
+                        rotated = true
+                    }
                 }else{
                     b1.rotate()
-                    rotated = true
                 }
             }
         }else if(e.key === 'ArrowRight'){
@@ -491,7 +506,7 @@ setInterval(() => {
 
 var j = 2
 var j_old = 2
-var flag = false
+
 
 // setInterval(() => {
     // for (let i = 0; i < b1.length; i++) {
